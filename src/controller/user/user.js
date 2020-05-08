@@ -11,6 +11,7 @@ const UserController = (app) =>{
             let create = await UserModel.registerUser(type,account,password,nickname)
             res.json({code:200,msg:'创建用户成功',data:create})
         }catch(e){
+            console.log(e)
             res.json({code:201,msg:e})
         }
     })
