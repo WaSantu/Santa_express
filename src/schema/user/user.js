@@ -15,6 +15,10 @@ const UserSchema = new mongoose.Schema({
         type:String,
         required: true
     },
+    status:{
+        type:String,
+        default:1
+    },
     //权限 superadmin,admin,normal,studyuser,超级用户权限有且只有一个
     auth:String,
     //创建时间

@@ -2,12 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ae07feb8-6512-41c2-a8f6-4f563a61b0ef" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/schema/user/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/model/media/media.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/schema/media/media.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/common/common.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/common/common.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controller/user/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/user/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/common/common.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/common/common.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/usermodel/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/usermodel/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/schema/user/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/schema/user/user.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +25,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1bHzO3IJP5IQRjplMQTK6IHVY6m" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -35,6 +37,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -59,7 +62,9 @@
       <workItem from="1588679186523" duration="6823000" />
       <workItem from="1588781805033" duration="9000" />
       <workItem from="1588944837547" duration="57000" />
-      <workItem from="1588947864880" duration="4548000" />
+      <workItem from="1588947864880" duration="4966000" />
+      <workItem from="1589209484345" duration="208000" />
+      <workItem from="1589209710278" duration="3304000" />
     </task>
     <servers />
   </component>
@@ -67,9 +72,13 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1588951061890">
+    <state x="461" y="161" key="SettingsEditor" timestamp="1589209954422">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1588951061890" />
+    <state x="461" y="161" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1589209954422" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1589213118616">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1589213118616" />
   </component>
 </project>
