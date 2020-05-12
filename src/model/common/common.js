@@ -1,12 +1,16 @@
 const jwt = require('jsonwebtoken')
 const userModel = require('../../schema/user/user')
 const mediaModel = require('../../schema/media/media')
+const articalModel = require('../../schema/artical/artical')
+const commentModel = require('../../schema/comment/comment')
 const fs = require('fs')
 
 class SiteCommon {
     constructor() {
         this.usermodel = userModel
         this.mediamodel = mediaModel
+        this.articalmodel = articalModel
+        this.commentmodel = commentModel
     }
     toJson(content){
         return JSON.parse(JSON.stringify(content))
@@ -56,6 +60,7 @@ class SiteCommon {
     }
     doLogError(e){
         //写入数据库失败操作记录
+
     }
 }
 
