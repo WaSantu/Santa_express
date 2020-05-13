@@ -8,7 +8,8 @@ var app = express();
 var MergeApi = require('./src/controller/index')
 var bodyParser = require('body-parser')
 var mongoose = require('mongoose')
-var jwt =require('express-jwt') 
+var jwt =require('express-jwt')
+const auth = require('./src/auth/auth')
 let options = {
     setHeaders: function (res, path, stat) {
       res.set('Access-Control-Allow-Origin', '*')
@@ -38,6 +39,7 @@ app.use(cookieParser());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use(bodyParser.json());
+app.use(auth(1))
 app.all("*",function (req, res, next) {
     next();
 });

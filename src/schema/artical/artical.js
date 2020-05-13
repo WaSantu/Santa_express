@@ -51,6 +51,6 @@ const ArticalSchema = new mongoose.Schema({
     create_time:String,
     update_time:String
 })
-const ArticalModel = mongoose.model('Media', ArticalSchema, 'Media')
+const ArticalModel = mongoose.model('Artical', ArticalSchema, 'Artical')
 
 module.exports = ArticalModel

@@ -3,6 +3,7 @@ const userModel = require('../../schema/user/user')
 const mediaModel = require('../../schema/media/media')
 const articalModel = require('../../schema/artical/artical')
 const commentModel = require('../../schema/comment/comment')
+const tagModel = require('../../schema/tag/tag')
 const fs = require('fs')
 
 class SiteCommon {
@@ -11,6 +12,7 @@ class SiteCommon {
         this.mediamodel = mediaModel
         this.articalmodel = articalModel
         this.commentmodel = commentModel
+        this.tagmodel = tagModel
     }
     toJson(content){
         return JSON.parse(JSON.stringify(content))

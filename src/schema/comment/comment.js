@@ -29,6 +29,6 @@ const CommentSchema = new mongoose.Schema({
     create_time:String,
     update_time:String
 })
-const CommentModel = mongoose.model('Media', CommentSchema, 'Media')
+const CommentModel = mongoose.model('Comment', CommentSchema, 'Comment')
 
 module.exports = CommentModel

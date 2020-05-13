@@ -20,3 +20,5 @@ class Media extends SiteCommon {
         })
     }
 }
+
+module.exports = Media
