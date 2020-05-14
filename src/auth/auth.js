@@ -1,8 +1,27 @@
 //api路由权限验证
+const jwt = require('jsonwebtoken')
 
-function auth(a){
+function auth(arg){
     return function(req,res,next){
-        console.log(req)
+        let request_url = req.originalUrl
+        let is_admin_request = request_url.slice(5,10)
+        if(is_admin_request === 'admin'){
+            if(!req.headers.authorization){
+                res.json({code:201,msg:'登陆失效或未授权请求'})
+                return
+            }
+            let token = req.headers.authorization.split(' ')[1]
+            jwt.verify(token,'santa',(e,d)=>{
+                if(e){
+                    res.json({code:401,msg:'登陆失效过期或未授权请求'})
+                }
+                req.user = d.data
+                next()
+            })
+        }else{
+            next()
+        }
+
     }
 }
 

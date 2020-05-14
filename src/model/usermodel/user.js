@@ -18,7 +18,8 @@ class User extends SiteCommon{
                         return;
                     }
                     this._createUser(account,password,auth,nickname,(data)=>{
-                        resolve(data)
+                        let token =  jwt.sign({name: "user", data: data}, 'santa', {expiresIn: 60*60*24*3600})
+                        resolve(token)
                     },(e)=>{
                         reject(this.toJson(e))
                     })
@@ -122,9 +123,8 @@ class User extends SiteCommon{
                     reject(`用户密码错误`)
                     return
                 }
-                jwt.sign({info:d},(d)=>{
-                    resolve(d)
-                })
+                let token =  jwt.sign({name: "user", data: d}, 'santa', {expiresIn: 60*60*24*3600})
+                resolve(token)
             })
         })
     }

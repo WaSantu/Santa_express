@@ -2,16 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ae07feb8-6512-41c2-a8f6-4f563a61b0ef" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/auth/auth.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/model/tag/tag.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/schema/tag/tag.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/auth/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/auth/auth.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/user/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/user/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/common/common.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/common/common.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/model/media/media.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/media/media.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/schema/artical/artical.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/schema/artical/artical.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/schema/comment/comment.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/schema/comment/comment.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/usermodel/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/usermodel/user.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,6 +66,7 @@
       <workItem from="1589293148968" duration="4084000" />
       <workItem from="1589371944384" duration="9000" />
       <workItem from="1589378596332" duration="3723000" />
+      <workItem from="1589456720237" duration="6239000" />
     </task>
     <servers />
   </component>
