@@ -4,6 +4,8 @@ const mediaModel = require('../../schema/media/media')
 const articalModel = require('../../schema/artical/artical')
 const commentModel = require('../../schema/comment/comment')
 const tagModel = require('../../schema/tag/tag')
+
+const docrypto = require('../../crypto/crypto')
 const fs = require('fs')
 
 class SiteCommon {
@@ -63,6 +65,9 @@ class SiteCommon {
     doLogError(e){
         //写入数据库失败操作记录
 
+    }
+    doCodeInfo(data){
+        return docrypto.crypto_code(data)
     }
 }
 

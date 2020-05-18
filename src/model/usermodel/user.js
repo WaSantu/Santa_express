@@ -19,7 +19,9 @@ class User extends SiteCommon{
                     }
                     this._createUser(account,password,auth,nickname,(data)=>{
                         let token =  jwt.sign({name: "user", data: data}, 'santa', {expiresIn: 60*60*24*3600})
-                        resolve(token)
+                        let send_data = this.doCodeInfo(token)
+                        console.log(send_data)
+                        resolve(send_data)
                     },(e)=>{
                         reject(this.toJson(e))
                     })
@@ -43,7 +45,7 @@ class User extends SiteCommon{
                             return;
                         }
                         this._createUser(account,password,auth,nickname,(data)=>{
-                            resolve(data)
+                            resolve(this,this.doCodeInfo(token))
                         },(e)=>{
                             reject(this.toJson(e))
                         })
@@ -51,7 +53,7 @@ class User extends SiteCommon{
                         //普通用户创建
                         let auth = 'normal'
                         this._createUser(account,password,auth,nickname,(data)=>{
-                            resolve(data)
+                            resolve(this,this.doCodeInfo(token))
                         },(e)=>{
                             reject(this.toJson(e))
                         })
