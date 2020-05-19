@@ -11,16 +11,16 @@ class User extends SiteCommon{
         return new Promise((resolve,reject)=>{
             if(type === 1){
                 //超级管理创建
-                let auth = 'superadmin'
-                this.usermodel.findOne({auth: 'superadmin'},(e,d)=>{
+                this.usermodel.findOne({auth: 100},(e,d)=>{
                     if(d){
                         reject(`超级管理已存在`)
                         return;
                     }
-                    this._createUser(account,password,auth,nickname,(data)=>{
+                    let secret_key = this.doCreateSecretKey(nickname)
+                    let secret_password = this.doCodeInfo(password,secret_key)
+                    this._createUser(account,secret_password,secret_key,100,nickname,(data)=>{
                         let token =  jwt.sign({name: "user", data: data}, 'santa', {expiresIn: 60*60*24*3600})
                         let send_data = this.doCodeInfo(token)
-                        console.log(send_data)
                         resolve(send_data)
                     },(e)=>{
                         reject(this.toJson(e))
@@ -37,22 +37,18 @@ class User extends SiteCommon{
                         return
                     }
                     if(type === 2){
-                        //admin用户创建
-                        let token = 'superadmin'
-                        let auth = 'admin'
-                        if(token != token){
-                            reject(`用户权限出错`)
-                            return;
-                        }
-                        this._createUser(account,password,auth,nickname,(data)=>{
+                        let secret_key = this.doCreateSecretKey(nickname)
+                        let secret_password = this.doCodeInfo(password,secret_key)
+                        this._createUser(account,secret_password,secret_key,101,nickname,(data)=>{
                             resolve(this,this.doCodeInfo(token))
                         },(e)=>{
                             reject(this.toJson(e))
                         })
                     }else if(type === 3){
                         //普通用户创建
-                        let auth = 'normal'
-                        this._createUser(account,password,auth,nickname,(data)=>{
+                        let secret_key = this.doCreateSecretKey(nickname)
+                        let secret_password = this.doCodeInfo(password,secret_key)
+                        this._createUser(account,secret_password,secret_key,102,nickname,(data)=>{
                             resolve(this,this.doCodeInfo(token))
                         },(e)=>{
                             reject(this.toJson(e))
@@ -104,14 +100,12 @@ class User extends SiteCommon{
             })
         })
     }
-    doUserLogin(account,password,to){
+    doUserLogin(account,password){
         return new Promise((resolve, reject) => {
-            this.usermodel.find({account:account,status:1},(e,d)=>{
-                if(to === 'admin'){
-                    if(d.auth != 'surperadmin' || d.auth != 'admin'){
-                        reject('用户权限不足')
-                        return
-                    }
+            this.usermodel.findOne({account:account,status:1},(e,d)=>{
+                if(d.auth != 100 & d.auth != 101){
+                    reject('用户权限不足')
+                    return
                 }
                 if(d.length === 0){
                     reject('用户名错误')
@@ -121,11 +115,12 @@ class User extends SiteCommon{
                     reject(this.toJson(e))
                     return
                 }
-                if(d.password != password){
+                let pwd = this.doCodeInfo(password,d.secret)
+                if(d.password != pwd){
                     reject(`用户密码错误`)
                     return
                 }
-                let token =  jwt.sign({name: "user", data: d}, 'santa', {expiresIn: 60*60*24*3600})
+                let token =  this.doCodeInfo(jwt.sign({name: "user", data: d}, 'santa', {expiresIn: 60*60*24*3600}))
                 resolve(token)
             })
         })
@@ -154,12 +149,13 @@ class User extends SiteCommon{
             })
         })
     }
-    _createUser(account,password,auth,nickname,successCb,failCb){
+    _createUser(account,password,secret,auth,nickname,successCb,failCb){
         this.usermodel.create({
             account,
             password,
             nickname,
             auth,
+            secret,
             created_time:+new Date(),
             update_time:+new Date()
         },(e,d)=>{

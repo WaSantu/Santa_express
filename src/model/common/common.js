@@ -52,7 +52,7 @@ class SiteCommon {
                         reject('权限验证出错')
                         return
                     }
-                    if(d.auth != 'superadmin'){
+                    if(d.auth != 100){
                         reject('权限验证出错')
                         return
                     }else{
@@ -66,7 +66,14 @@ class SiteCommon {
         //写入数据库失败操作记录
 
     }
-    doCodeInfo(data){
+    doDecodeInfo(data,password){
+        return docrypto.crypto_decode(data,password)
+    }
+    doCodeInfo(data,password){
+        return docrypto.crypto_code(data,password)
+    }
+    doCreateSecretKey(data){
+        let time = +new Date() + data
         return docrypto.crypto_code(data)
     }
 }

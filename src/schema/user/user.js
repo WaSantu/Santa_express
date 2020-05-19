@@ -10,17 +10,22 @@ const UserSchema = new mongoose.Schema({
         type:String,
         required: true
     },
+    //私钥
+    secret:{
+        type:String,
+        required:true
+    },
     //昵称
     nickname:{
         type:String,
         required: true
     },
     status:{
-        type:String,
+        type:Number,
         default:1
     },
-    //权限 superadmin,admin,normal,studyuser,超级用户权限有且只有一个
-    auth:String,
+    //权限 超级用户权限有且只有一个 100 超管，101管理远 102普通用户
+    auth:Number,
     //创建时间
     created_time:String,
     //修改时间
