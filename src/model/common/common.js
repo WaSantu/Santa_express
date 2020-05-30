@@ -34,8 +34,18 @@ class SiteCommon {
         return function(req,res,next){
             for(let val of params){
                 if(!req.body[val.val] || typeof req.body[val.val] != val.type){
-                    res.json({code:201,msg:`${val.val}参数有误`})
-                    return
+                    if(val.type == 'array'){
+                        if(req.body[val.val] instanceof Array){
+                            next()
+                            return
+                        }else{
+                            res.json({code:201,msg:`${val.val}参数有误`})
+                            return
+                        }
+                    }else{
+                        res.json({code:201,msg:`${val.val}参数有误`})
+                        return
+                    }
                 }
             }
             next()
@@ -44,21 +54,27 @@ class SiteCommon {
     verifySuperAdmin(token){
         return new Promise((resolve, reject) => {
             jwt.verify(token, 'santa',(e,d)=>{
-                if(e && !d._id){
-                    return false
+                if(e){
+                    reject('登录时效过期或未授权请求')
+                    return
                 }
-                this.usermodel.find({_id:d._id},(e,d)=>{
-                    if(e || d.length === 0 || !d){
-                        reject('权限验证出错')
-                        return
-                    }
-                    if(d.auth != 100){
-                        reject('权限验证出错')
-                        return
-                    }else{
-                        resolve(d)
-                    }
-                })
+                if(d.data.auth != 100){
+                    reject('登录时效过期或未授权请求')
+                    return
+                }
+                resolve(d.data)
+                // this.usermodel.find({_id:d._id},(e,d)=>{
+                //     if(e || d.length === 0 || !d){
+                //         reject('权限验证出错')
+                //         return
+                //     }
+                //     if(d.auth != 100){
+                //         reject('权限验证出错')
+                //         return
+                //     }else{
+                //         resolve(d)
+                //     }
+                // })
             })
         })
     }

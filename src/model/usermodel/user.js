@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken')
 class User extends SiteCommon{
     constructor() {
         super()
-        this.doLogError()
+        // this.doLogError()
     }
     registerUser(type,account,password,nickname){
         return new Promise((resolve,reject)=>{
@@ -20,8 +20,7 @@ class User extends SiteCommon{
                     let secret_password = this.doCodeInfo(password,secret_key)
                     this._createUser(account,secret_password,secret_key,100,nickname,(data)=>{
                         let token =  jwt.sign({name: "user", data: data}, 'santa', {expiresIn: 60*60*24*3600})
-                        let send_data = this.doCodeInfo(token)
-                        resolve(send_data)
+                        resolve(token)
                     },(e)=>{
                         reject(this.toJson(e))
                     })
@@ -40,7 +39,8 @@ class User extends SiteCommon{
                         let secret_key = this.doCreateSecretKey(nickname)
                         let secret_password = this.doCodeInfo(password,secret_key)
                         this._createUser(account,secret_password,secret_key,101,nickname,(data)=>{
-                            resolve(this,this.doCodeInfo(token))
+                            let token =  jwt.sign({name: "user", data: data}, 'santa', {expiresIn: 60*60*24*3600})
+                            resolve(token)
                         },(e)=>{
                             reject(this.toJson(e))
                         })
@@ -49,7 +49,8 @@ class User extends SiteCommon{
                         let secret_key = this.doCreateSecretKey(nickname)
                         let secret_password = this.doCodeInfo(password,secret_key)
                         this._createUser(account,secret_password,secret_key,102,nickname,(data)=>{
-                            resolve(this,this.doCodeInfo(token))
+                            let token =  jwt.sign({name: "user", data: data}, 'santa', {expiresIn: 60*60*24*3600})
+                            resolve(token)
                         },(e)=>{
                             reject(this.toJson(e))
                         })
@@ -58,29 +59,21 @@ class User extends SiteCommon{
             }
         })
     }
-    deleteUser(token,id){
+    deleteUser(id){
         return new Promise((resolve, reject) => {
-            this.verifySuperAdmin(token).then(r=>{
-                if(d._id != id){
-                    this.usermodel.update({_id:id},{status:0,update_time: +new Date()},(e,d)=>{
-                        if(e){
-                            reject(this.toJson(e))
-                            return
-                        }else{
-                            resolve(1)
-                        }
-                    })
-                }else{
-                    reject('不能删除自己')
+            this.usermodel.deleteMany({test:{$in:id}},(e,d)=>{
+                console.log(e)
+                if(e){
+                    reject(this.toJson(e))
+                    return
                 }
-            }).catch((e)=>{
-                reject(e)
+                resolve(d)
             })
         })
     }
     getUserList(){
         return new Promise((resolve, reject) => {
-            this.usermodel.find({status:1},(e,d)=>{
+            this.usermodel.find({},(e,d)=>{
                 if(e){
                     reject(this.toJson(e))
                     return
@@ -91,7 +84,7 @@ class User extends SiteCommon{
     }
     getUserInfo(id){
         return new Promise((resolve, reject) => {
-            this.usermodel.find({_id:id,status:1},(e,d)=>{
+            this.usermodel.find({_id:id},(e,d)=>{
                 if(e){
                     reject(this.toJson(e))
                     return
@@ -102,13 +95,13 @@ class User extends SiteCommon{
     }
     doUserLogin(account,password){
         return new Promise((resolve, reject) => {
-            this.usermodel.findOne({account:account,status:1},(e,d)=>{
-                if(d.auth != 100 & d.auth != 101){
-                    reject('用户权限不足')
+            this.usermodel.findOne({account:account},(e,d)=>{
+                if(!d){
+                    reject('用户名错误')
                     return
                 }
-                if(d.length === 0){
-                    reject('用户名错误')
+                if(d.auth != 100 & d.auth != 101){
+                    reject('用户权限不足')
                     return
                 }
                 if(e){
@@ -120,7 +113,7 @@ class User extends SiteCommon{
                     reject(`用户密码错误`)
                     return
                 }
-                let token =  this.doCodeInfo(jwt.sign({name: "user", data: d}, 'santa', {expiresIn: 60*60*24*3600}))
+                let token =  jwt.sign({name: "user", data: d}, 'santa', {expiresIn: 60*60*24*3600})
                 resolve(token)
             })
         })
@@ -133,7 +126,7 @@ class User extends SiteCommon{
                     return
                 }
                 let {account,password} = d.info
-                this.usermodel.find({account:account,password:password,status:1},(e,d)=>{
+                this.usermodel.find({account:account,password:password},(e,d)=>{
                     if(to === 'admin'){
                         if(d.auth != 'admin' || d.auth != 'superadmin'){
                             reject('用户权限出错')

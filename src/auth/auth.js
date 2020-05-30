@@ -11,10 +11,10 @@ function auth(arg){
                 return
             }
             let encode_token = req.headers.authorization.split(' ')[1]
-            let decode_token = docrypto.crypto_decode(encode_token)
-            jwt.verify(decode_token,'santa',(e,d)=>{
+            jwt.verify(encode_token,'santa',(e,d)=>{
                 if(e){
                     res.json({code:401,msg:'登陆失效过期或未授权请求'})
+                    return
                 }
                 req.user = d.data
                 next()
