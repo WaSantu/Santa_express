@@ -4,9 +4,13 @@ const mediaModel = require('../../schema/media/media')
 const articalModel = require('../../schema/artical/artical')
 const commentModel = require('../../schema/comment/comment')
 const tagModel = require('../../schema/tag/tag')
+const sysmodel = require('../../schema/sysset/sysset')
+const linkmodel = require('../../schema/link/link')
+const config = require('../../../config.json')
 
 const docrypto = require('../../crypto/crypto')
 const fs = require('fs')
+const nodemailer = require('nodemailer')
 
 class SiteCommon {
     constructor() {
@@ -15,6 +19,9 @@ class SiteCommon {
         this.articalmodel = articalModel
         this.commentmodel = commentModel
         this.tagmodel = tagModel
+        this.sysmodel = sysmodel
+        this.linkmodel = linkmodel
+        this.config = config
     }
     toJson(content){
         return JSON.parse(JSON.stringify(content))
@@ -24,6 +31,17 @@ class SiteCommon {
             for(let val of params){
                 if(!req.body[val]){
                     res.json({code:201,msg:`缺少参数${val}`})
+                    return
+                }
+            }
+            next()
+        }
+    }
+    checkParmasName(params){
+        return function(req,res,next){
+            for(let val of params){
+                if(!req.body[val.val]){
+                    res.json({code:201,msg:`${val.text}不能为空`})
                     return
                 }
             }
@@ -80,7 +98,6 @@ class SiteCommon {
     }
     doLogError(e){
         //写入数据库失败操作记录
-
     }
     doDecodeInfo(data,password){
         return docrypto.crypto_decode(data,password)
@@ -91,6 +108,48 @@ class SiteCommon {
     doCreateSecretKey(data){
         let time = +new Date() + data
         return docrypto.crypto_code(data)
+    }
+    getsysset(){
+        return new Promise((resolve, reject) => {
+            this.sysmodel.findOne({},(e,d)=>{
+                resolve(d)
+            })
+        })
+    }
+    async mail(msg,target){
+        let re = await this.getsysset()
+        let master_mail = re.send_mail
+        let master_key = re.send_mail_key
+        let site_name = re.site_name
+        let transporter = nodemailer.createTransport({
+            host: 'smtp.qq.com',
+            secureConnection: true, // use SSL
+            port: 465,
+            secure: true, // secure:true for port 465, secure:false for port 587
+            auth: {
+                user: master_mail,
+                pass: master_key// QQ邮箱需要使用授权码
+            }
+        });
+        let send_target
+        if(target){
+            send_target = target
+        }else{
+            send_target = re.send_mail
+        }
+        let send_msg = `${msg}`
+        let mailOptions = {
+            from: `"${site_name}" <${master_mail}>` , // 发件人
+            to: send_target, // 收件人
+            subject: `${site_name}`, // 主题
+            text: send_msg, // plain text body
+            // 下面是发送附件，不需要就注释掉
+        };
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                return console.log(error);
+            }
+        });
     }
 }
 

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const UserSchema = new mongoose.Schema({
+const SyssetSchema = new mongoose.Schema({
     //账号
     account: {
         type: String,
@@ -15,15 +15,16 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    //昵称
-    nickname: {
-        type: String,
-        required: true
-    }
+    site_name: String,
+    site_des: String,
+    site_icon: String,
+    send_mail:String,
+    send_mail_key:String,
+    comment:String
 }, {
     versionKey: false,
     timestamps: {createdAt: 'createTime', updatedAt: 'updateTime'}
 })
-const userModel = mongoose.model('User', UserSchema, 'User')
+const MediaModel = mongoose.model('Sysset', SyssetSchema, 'Sysset')
 
-module.exports = userModel
+module.exports = MediaModel

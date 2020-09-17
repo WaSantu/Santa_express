@@ -1,6 +1,7 @@
 const crypto = require('crypto')
 const config = require('../../config')
 const crypto_code = (data,password=config.crypto_key) => {
+    console.log(data,password)
     const cipher = crypto.createCipher('aes-256-cbc', password);
     let crypted = cipher.update(data, 'utf-8', 'hex');
     crypted += cipher.final('hex');

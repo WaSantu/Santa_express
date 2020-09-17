@@ -2,68 +2,37 @@ const SiteCommon = require('../common/common')
 const jwt = require('jsonwebtoken')
 
 
-class User extends SiteCommon{
+class User extends SiteCommon {
     constructor() {
         super()
         // this.doLogError()
     }
-    registerUser(type,account,password,nickname){
-        return new Promise((resolve,reject)=>{
-            if(type === 1){
-                //超级管理创建
-                this.usermodel.findOne({auth: 100},(e,d)=>{
-                    if(d){
-                        reject(`超级管理已存在`)
-                        return;
-                    }
-                    let secret_key = this.doCreateSecretKey(nickname)
-                    let secret_password = this.doCodeInfo(password,secret_key)
-                    this._createUser(account,secret_password,secret_key,100,nickname,(data)=>{
-                        let token =  jwt.sign({name: "user", data: data}, 'santa', {expiresIn: 60*60*24*3600})
-                        resolve(token)
-                    },(e)=>{
-                        reject(this.toJson(e))
-                    })
+
+    registerUser(type, account, password, nickname) {
+        return new Promise((resolve, reject) => {
+            //超级管理创建
+            this.usermodel.findOne({auth: 100}, (e, d) => {
+                if (d) {
+                    reject(`超级管理已存在`)
+                    return
+                }
+                let secret_key = this.doCreateSecretKey(nickname)
+                let secret_password = this.doCodeInfo(password, secret_key)
+                this._createUser(account, secret_password, secret_key, 100, nickname, (data) => {
+                    let token = jwt.sign({name: "user", data: data}, 'santa', {expiresIn: 60 * 60 * 24 * 3600})
+                    resolve(token)
+                }, (e) => {
+                    reject(this.toJson(e))
                 })
-            }else{
-                this.usermodel.find({"$or":[{account:account},{nickname:nickname}]},(e,d)=>{
-                    if(d.length != 0){
-                        reject(`账号或昵称重复`)
-                        return
-                    }
-                    if(e){
-                        reject(e)
-                        return
-                    }
-                    if(type === 2){
-                        let secret_key = this.doCreateSecretKey(nickname)
-                        let secret_password = this.doCodeInfo(password,secret_key)
-                        this._createUser(account,secret_password,secret_key,101,nickname,(data)=>{
-                            let token =  jwt.sign({name: "user", data: data}, 'santa', {expiresIn: 60*60*24*3600})
-                            resolve(token)
-                        },(e)=>{
-                            reject(this.toJson(e))
-                        })
-                    }else if(type === 3){
-                        //普通用户创建
-                        let secret_key = this.doCreateSecretKey(nickname)
-                        let secret_password = this.doCodeInfo(password,secret_key)
-                        this._createUser(account,secret_password,secret_key,102,nickname,(data)=>{
-                            let token =  jwt.sign({name: "user", data: data}, 'santa', {expiresIn: 60*60*24*3600})
-                            resolve(token)
-                        },(e)=>{
-                            reject(this.toJson(e))
-                        })
-                    }
-                })
-            }
+            })
         })
     }
-    deleteUser(id){
+
+    deleteUser(id) {
         return new Promise((resolve, reject) => {
-            this.usermodel.deleteMany({test:{$in:id}},(e,d)=>{
+            this.usermodel.deleteMany({test: {$in: id}}, (e, d) => {
                 console.log(e)
-                if(e){
+                if (e) {
                     reject(this.toJson(e))
                     return
                 }
@@ -71,10 +40,11 @@ class User extends SiteCommon{
             })
         })
     }
-    getUserList(){
+
+    getUserList() {
         return new Promise((resolve, reject) => {
-            this.usermodel.find({},(e,d)=>{
-                if(e){
+            this.usermodel.find({}, (e, d) => {
+                if (e) {
                     reject(this.toJson(e))
                     return
                 }
@@ -82,10 +52,11 @@ class User extends SiteCommon{
             })
         })
     }
-    getUserInfo(id){
+
+    getUserInfo(id) {
         return new Promise((resolve, reject) => {
-            this.usermodel.find({_id:id},(e,d)=>{
-                if(e){
+            this.usermodel.find({_id: id}, (e, d) => {
+                if (e) {
                     reject(this.toJson(e))
                     return
                 }
@@ -93,47 +64,45 @@ class User extends SiteCommon{
             })
         })
     }
-    doUserLogin(account,password){
+
+    doUserLogin(account, password) {
         return new Promise((resolve, reject) => {
-            this.usermodel.findOne({account:account},(e,d)=>{
-                if(!d){
+            this.sysmodel.findOne({account: account}, (e, d) => {
+                if (!d) {
                     reject('用户名错误')
                     return
                 }
-                if(d.auth != 100 & d.auth != 101){
-                    reject('用户权限不足')
-                    return
-                }
-                if(e){
+                if (e) {
                     reject(this.toJson(e))
                     return
                 }
-                let pwd = this.doCodeInfo(password,d.secret)
-                if(d.password != pwd){
+                let pwd = this.doCodeInfo(password, d.secret)
+                if (d.password != pwd) {
                     reject(`用户密码错误`)
                     return
                 }
-                let token =  jwt.sign({name: "user", data: d}, 'santa', {expiresIn: 60*60*24*3600})
+                let token = jwt.sign({name: "user", data: d}, 'santa', {expiresIn: 60 * 60 * 24 * 3600})
                 resolve(token)
             })
         })
     }
-    doUserAutoLogin(token,to){
+
+    doUserAutoLogin(token, to) {
         return new Promise((resolve, reject) => {
-            jwt.verify(token,'santa',(e,d)=>{
-                if(e){
+            jwt.verify(token, 'santa', (e, d) => {
+                if (e) {
                     reject('权限验证出错')
                     return
                 }
-                let {account,password} = d.info
-                this.usermodel.find({account:account,password:password},(e,d)=>{
-                    if(to === 'admin'){
-                        if(d.auth != 'admin' || d.auth != 'superadmin'){
+                let {account, password} = d.info
+                this.usermodel.find({account: account, password: password}, (e, d) => {
+                    if (to === 'admin') {
+                        if (d.auth != 'admin' || d.auth != 'superadmin') {
                             reject('用户权限出错')
                             return
                         }
                     }
-                    if(e || d.length === 0){
+                    if (e || d.length === 0) {
                         reject('登陆时效过期，请重新登陆')
                         return
                     }
@@ -142,17 +111,18 @@ class User extends SiteCommon{
             })
         })
     }
-    _createUser(account,password,secret,auth,nickname,successCb,failCb){
+
+    _createUser(account, password, secret, auth, nickname, successCb, failCb) {
         this.usermodel.create({
             account,
             password,
             nickname,
             auth,
             secret,
-            created_time:+new Date(),
-            update_time:+new Date()
-        },(e,d)=>{
-            if(e){
+            created_time: +new Date(),
+            update_time: +new Date()
+        }, (e, d) => {
+            if (e) {
                 failCb(e)
                 return
             }

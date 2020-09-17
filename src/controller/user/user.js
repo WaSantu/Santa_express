@@ -7,14 +7,6 @@ const UserController = (app) =>{
     app.post('/api/user/createadmin',UserModel.checkParmas(['password','account','nickname']),async (req,res)=>{
         try{
             let {type,account,password,nickname} = req.body
-            if(type == 2){
-                if(!req.headers.authorization){
-                    res.json({code:401,msg:'未授权请求'})
-                    return
-                }
-                let encode_token = UserModel.doDecodeInfo(req.headers.authorization.split(' ')[1])
-                let reuslt = await UserModel.verifySuperAdmin(encode_token)
-            }
             let create = await UserModel.registerUser(type,account,password,nickname)
             res.json({code:200,msg:'创建用户成功',data:create})
         }catch(e){

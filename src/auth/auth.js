@@ -1,6 +1,7 @@
 //api路由权限验证
 const jwt = require('jsonwebtoken')
 const docrypto = require('../crypto/crypto')
+const config = require('../../config.json')
 function auth(arg){
     return function(req,res,next){
         let request_url = req.originalUrl
@@ -11,7 +12,7 @@ function auth(arg){
                 return
             }
             let encode_token = req.headers.authorization.split(' ')[1]
-            jwt.verify(encode_token,'santa',(e,d)=>{
+            jwt.verify(encode_token,config.token_key,(e,d)=>{
                 if(e){
                     res.json({code:401,msg:'登陆失效过期或未授权请求'})
                     return

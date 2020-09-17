@@ -1,21 +1,26 @@
 const SiteCommon = require('../common/common')
+const mongoose = require('mongoose')
 
 class Tag extends SiteCommon {
     constructor() {
         super()
     }
-    doCreateTag(id,name,is_hot=0){
+
+    /**
+     * @description 创建标签
+     * @param name 标签名称
+     */
+    doCreateTag(name) {
         return new Promise(async (resolve, reject) => {
-            let result = this._checkTag(name)
-            if(result === 1){
+            let result = await this._checkTag(name)
+            if(result.status != 1) {
+                reject(result.msg)
+                return
+            }else{
                 this.tagmodel.create({
-                    name:name,
-                    is_hot:is_hot,
-                    creator_id:id,
-                    create_time:+new Date(),
-                    update_time:+new Date()
-                },(e,d)=>{
-                    if(e){
+                    name: name,
+                }, (e, d) => {
+                    if (e) {
                         reject(this.toJson(e))
                         return
                     }
@@ -24,12 +29,23 @@ class Tag extends SiteCommon {
             }
         })
     }
-    doUpdateTag(id,name,is_hot){
+
+    /**
+     * @description 修改标签
+     * @param id {string} 标签id
+     * @param name {string} 标签名字
+     * @returns {Promise<unknown>}
+     */
+    doUpdateTag(id, name,) {
         return new Promise(async (resolve, reject) => {
-            let result = this._checkTag(name)
-            if(result === 1){
-                this.tagmodel.update({_id:id},{name:name},(e,d)=>{
-                    if(e){
+            let result = await this._checkTag(name)
+            if(result.status != 1){
+                reject(result.msg)
+                return
+            }else{
+                this.tagmodel.updateOne({_id: id}, {name: name}, (e, d) => {
+                    console.log(e,d)
+                    if (e) {
                         reject(this.toJson(e))
                         return
                     }
@@ -38,18 +54,66 @@ class Tag extends SiteCommon {
             }
         })
     }
-    _checkTag(name){
-        return new Promise((resolve, reject) => {
-            this.tagmodel.find({name:name},(e,d)=>{
+
+    /**
+     * @description 删除标签
+     * @param {array} ids 数组
+     */
+    doDeleteTag(ids){
+        console.log(ids)
+        return new Promise((resolve,reject)=>{
+            this.tagmodel.deleteMany({_id:{$in:ids}},(e,d)=>{
                 if(e){
                     reject(this.toJson(e))
                     return
                 }
-                if(d.length != 0){
-                    reject('标签名称已存在')
+                resolve('ok')
+            })
+        })
+    }
+    doGetByTag(tagid){
+        return new Promise((resolve, reject) => {
+            // this.articalmodel.find({ "tag": { $elemMatch: { "tag_id": mongoose.Types.ObjectId(tagid) } } },(e,d)=>{
+            //     console.log(e,d)
+            // })
+            this.articalmodel.aggregate([{
+                $match:{
+                    'tag.tag_id':mongoose.Types.ObjectId(tagid)
+                }
+            },{
+                $lookup: {
+                    from:"Tag",
+                    localField: "tag.tag_id",
+                    foreignField:"_id",
+                    as:"tag_arr"
+                }
+            },{
+                $project:{
+                    comment:0,
+                    tag:0
+                }
+            }],(e,d)=>{
+                if(e){
+                    reject(this.toJson(e))
                     return
                 }
-                resolve(1)
+                resolve(d)
+            })
+        })
+    }
+
+    _checkTag(name) {
+        return new Promise((resolve, reject) => {
+            this.tagmodel.findOne({name: name}, (e, d) => {
+                if (e) {
+                    resolve({status:0,msg:e})
+                    return
+                }
+                if (d) {
+                    resolve({status:0,msg:'已存在此标签名'})
+                    return
+                }
+                resolve({status:1,msg:''})
             })
         })
     }

@@ -2,32 +2,25 @@ const mongoose = require('mongoose')
 const CommentSchema = new mongoose.Schema({
     //关联文章id
     artical_id:{
-        type:String,
-        required:true
+        type:mongoose.Schema.ObjectId
     },
-    //评论人id
-    creator_id:{
-        type: mongoose.Schema.ObjectId,
-        ref:'User',
-        required: true
-    },
-    //回复评论人id
-    to_userid:{
-        type: mongoose.Schema.ObjectId,
-        ref:'User'
-    },
+    form_user:String,
+    from_website:String,
+    from_email:String,
+    to_user:String,
+    to_user_mail:String,
     //评论内容
     content:{
         type:String,
         required:true
     },
-    //点赞数量
-    like:{
-        type:Number,
-        default:0
-    },
-    create_time:String,
-    update_time:String
+    status:{
+        type:String,
+        default:1
+    }
+},{
+    versionKey: false,
+    timestamps: {createdAt: 'createTime', updatedAt: 'updateTime'}
 })
 const CommentModel = mongoose.model('Comment', CommentSchema, 'Comment')
 

@@ -1,13 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="ae07feb8-6512-41c2-a8f6-4f563a61b0ef" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controller/artical/artical.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controller/comment/comment.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controller/link/link.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controller/sysset/sysset.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controller/tag/tag.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/model/artical/artical.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/model/comment/comment.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/model/link/link.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/model/sysset/sysset.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/schema/link/link.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/schema/sysset/sysset.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/auth/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/auth/auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controller/user/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/user/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/crypto/crypto.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/crypto/crypto.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/common/common.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/common/common.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/tag/tag.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/tag/tag.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/usermodel/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/usermodel/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/schema/artical/artical.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/schema/artical/artical.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/schema/comment/comment.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/schema/comment/comment.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/schema/tag/tag.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/schema/tag/tag.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/schema/user/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/schema/user/user.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,8 +54,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="tsconfig.json" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -48,13 +85,15 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\博客重构\src\model" />
     </key>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -82,48 +121,67 @@
       <workItem from="1589456720237" duration="6239000" />
       <workItem from="1589814544659" duration="2979000" />
       <workItem from="1589899490163" duration="2426000" />
-      <workItem from="1590806885422" duration="14017000" />
+      <workItem from="1590806885422" duration="16135000" />
+      <workItem from="1590977610430" duration="616000" />
+      <workItem from="1591064696263" duration="601000" />
+      <workItem from="1591065450672" duration="5000" />
+      <workItem from="1591425930675" duration="1450000" />
+      <workItem from="1593511174597" duration="26000" />
+      <workItem from="1593511261505" duration="35000" />
+      <workItem from="1593511385234" duration="213000" />
+      <workItem from="1597908271865" duration="2853000" />
+      <workItem from="1597975257847" duration="251000" />
+      <workItem from="1599107069051" duration="3792000" />
+      <workItem from="1599189076256" duration="16000" />
+      <workItem from="1599197882736" duration="7413000" />
+      <workItem from="1599641251499" duration="7032000" />
+      <workItem from="1599876157996" duration="12846000" />
+      <workItem from="1600055925265" duration="24939000" />
+      <workItem from="1600222418329" duration="26196000" />
+      <workItem from="1600308878027" duration="6945000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="552" y="142" key="#JSON" timestamp="1589815070113">
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1593511595634">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="142" key="#JSON/0.0.1920.1040@0.0.1920.1040" timestamp="1589815070113" />
-    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1590822164811">
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593511595634" />
+    <state x="461" y="177" key="SettingsEditor" timestamp="1600076187647">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="461" y="170" key="SettingsEditor/0.0.1920.1040/-1920.10.1920.1040@0.0.1920.1040" timestamp="1599108306074" />
+    <state x="461" y="177" key="SettingsEditor/0.0.1920.1080/-1920.10.1920.1080@0.0.1920.1080" timestamp="1600076187647" />
+    <state x="552" y="249" key="Vcs.Push.Dialog.v2" timestamp="1599647182505">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590822164811" />
-    <state x="461" y="161" key="SettingsEditor" timestamp="1589209954422">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="552" y="249" key="Vcs.Push.Dialog.v2/0.0.1920.1040/-1920.10.1920.1040@0.0.1920.1040" timestamp="1599647182505" />
+    <state x="663" y="256" width="594" height="568" key="find.popup" timestamp="1599898308127">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="461" y="161" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1589209954422" />
-    <state x="751" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1589814900586">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="663" y="256" width="594" height="568" key="find.popup/0.0.1920.1080/-1920.10.1920.1080@0.0.1920.1080" timestamp="1599898308127" />
+    <state x="616" y="250" key="run.anything.popup" timestamp="1600233825913">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="751" y="431" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1589814900586" />
-    <state x="1011" y="240" width="667" height="566" key="find.popup" timestamp="1589899777324">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="616" y="250" key="run.anything.popup/0.0.1920.1080/-1920.10.1920.1080@0.0.1920.1080" timestamp="1600233825913" />
+    <state x="623" y="235" width="672" height="678" key="search.everywhere.popup" timestamp="1600234958334">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="1011" y="240" width="667" height="566" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1589899777324" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1589816186305">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1589816186305" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/schema/user/user.js</url>
-          <line>21</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <state x="623" y="235" width="672" height="678" key="search.everywhere.popup/0.0.1920.1080/-1920.10.1920.1080@0.0.1920.1080" timestamp="1600234958334" />
   </component>
 </project>

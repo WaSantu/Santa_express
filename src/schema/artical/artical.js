@@ -5,12 +5,6 @@ const ArticalSchema = new mongoose.Schema({
       required:true,
       type:String
     },
-    //文章作者
-    creator_id:{
-      required: true,
-      type:mongoose.Schema.ObjectId,
-      ref:'User'
-    },
     //文章string内容
     content_text:{
         type:String,
@@ -38,18 +32,27 @@ const ArticalSchema = new mongoose.Schema({
         type:Number,
         default:0
     },
+    comment:[{
+        comment_id:{
+            type:mongoose.Schema.ObjectId,
+            ref:"Comment"
+        }
+    }],
     //文章首页配图
-    artical_img:{
-        type:mongoose.Schema.ObjectId,
-        ref:'Media'
-    },
-    //文章状态 1已发布，2草稿箱，3未发布，4删除
+    artical_img:[{
+        img_id:{
+            type:mongoose.Schema.ObjectId,
+            ref:'Media'
+        }
+    }],
+    //文章状态 1已发布，2草稿箱，3删除
     status:{
         type: String,
         default:1
-    },
-    create_time:String,
-    update_time:String
+    }
+},{
+    versionKey: false,
+    timestamps: {createdAt: 'createTime', updatedAt: 'updateTime'}
 })
 const ArticalModel = mongoose.model('Artical', ArticalSchema, 'Artical')
 
